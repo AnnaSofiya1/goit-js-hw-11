@@ -7,6 +7,7 @@ const searchForm = document.querySelector('.form');
 const inputElement = document.querySelector('.search-input');
 const loader = document.querySelector('.loader');
 
+
 hideLoader();
 
 searchForm.addEventListener('submit', submitHandle);
@@ -21,10 +22,12 @@ async function submitHandle(event) {
       message: 'Please enter a search term.',
       position: 'topCenter', 
     });
-
     return;
   }
+
+ 
   showLoader();
+
   try {
     const images = await fetchImages(searchTerm);
     if (images.length === 0) {
@@ -47,12 +50,16 @@ async function submitHandle(event) {
       position: 'topCenter',
     });
   } finally {
+   
     hideLoader();
   }
 }
+
+
 function showLoader() {
   loader.classList.remove('hidden');
 }
+
 
 function hideLoader() {
   loader.classList.add('hidden');
