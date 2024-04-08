@@ -6,7 +6,7 @@ import { renderGallery, galleryElement } from './js/render-functions';
 const searchForm = document.querySelector('.form');
 const inputElement = document.querySelector('.search-input');
 const loader = document.querySelector('.loader');
-
+const endMessage = document.querySelector('.end-message'); 
 
 hideLoader();
 
@@ -25,7 +25,7 @@ async function submitHandle(event) {
     return;
   }
 
- 
+
   showLoader();
 
   try {
@@ -38,9 +38,13 @@ async function submitHandle(event) {
           'Sorry, there are no images matching your search query. Please try again!',
         position: 'topCenter',
       });
+
+      showEndOfCollectionMessage();
     } else {
       renderGallery(images);
       inputElement.value = '';
+
+      hideEndOfCollectionMessage();
     }
   } catch (error) {
     console.error('Error fetching images:', error);
@@ -50,7 +54,7 @@ async function submitHandle(event) {
       position: 'topCenter',
     });
   } finally {
-   
+
     hideLoader();
   }
 }
@@ -63,4 +67,14 @@ function showLoader() {
 
 function hideLoader() {
   loader.classList.add('hidden');
+}
+
+
+function showEndOfCollectionMessage() {
+  endMessage.classList.remove('hidden');
+}
+
+
+function hideEndOfCollectionMessage() {
+  endMessage.classList.add('hidden');
 }
